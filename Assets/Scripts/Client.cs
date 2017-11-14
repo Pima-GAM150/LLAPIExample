@@ -164,9 +164,9 @@ public class Client : MonoBehaviour {
         if(cnnId == ourClientId)
         {
             //Add movement
-            //WHY DON'T YOU ADD THIS TO THE PREFAB ISNTEAD OF HERE?
+            //WHY DON'T YOU ADD THIS TO THE PREFAB INSTEAD OF HERE?
             newPlayer.AddComponent<PlayerMovement>();
-            //Remove Canvas
+            //Turn off Canvas
             GameObject.Find("Canvas").SetActive(false);
             isStarted = true;
         }

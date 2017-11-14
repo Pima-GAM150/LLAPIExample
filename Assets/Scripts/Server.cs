@@ -4,6 +4,13 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/*
+ * All Messages come in pairs, Send/Receive.
+ * Watch out for overloading the server with received messages.
+ * Only send the data you absolutely need to.  Try to only send messages when you have to.
+ *      It is easier to parse a longer message than sending multiple tiny ones.
+ */
+
 public class ServerClient
 {
     public int connectionId;
@@ -32,6 +39,7 @@ public class Server : MonoBehaviour {
     private List<ServerClient> clients = new List<ServerClient>();
 
     private float lastMovementUpdate;
+    //Update this value to increase the rate at which the players' position is updated
     private float movementUpdateRate = 0.5f;
 
     private void Start()
@@ -41,7 +49,6 @@ public class Server : MonoBehaviour {
 
         //https://blogs.unity3d.com/2014/06/11/all-about-the-unity-networking-transport-layer/
         reliableChannel = cc.AddChannel(QosType.Reliable);
-
         unreliableChannel = cc.AddChannel(QosType.Unreliable);
         //Used for very large messages
         //QosType.UnreliableFragmented
@@ -180,6 +187,7 @@ public class Server : MonoBehaviour {
         Send(message, channelId, c);
     }
 
+    //Send a message to all players
     private void Send(string message, int channelId, List<ServerClient> c)
     {
         Debug.Log("Sending: " + message);
